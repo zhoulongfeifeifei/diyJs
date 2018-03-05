@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>iScroll</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1.0,initial-scale=1.0,minimum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script src="../js/zepto.js"></script>
+	<script src="../js/iscroll.js"></script>
+	<style type="text/css">
+	body,ul,li,html{
+	 	margin:0;
+	 	padding: 0;
+	 }
+	ul{
+		list-style: none;
+	}
+	li{
+		height:30px;
+	}
+    #container{
+    	position: absolute;
+    	top:0;
+    	bottom:0;
+    	width:100%;
+    }
+    #pullDown{
+    	height:18px;
+    }
+	</style>
+  <script type="text/javascript">
+  var oScroll=null;
+  var oPullDown=null;
+  var oPullUp=null;
+  var iNum=0;
+  var oList=null;
+  function loaded(){//这里运用的是onload 事件。
+       oPullDown=$("#pullDown");
+       oPullUp=$("#pullUp");
+       oList=$("#list");	
+	   setTimeout(function(){//setTimeout 为了确保信息拿取的准确
+	 		oScroll=new iScroll('container',{
+   		       hScrollbar:false,
+   		       vScrollbar:false,
+   		       topOffset:18,
+   		       onScrollMove:function(){
+   		       	if(this.y>5&&!oPullDown.hasClass("pull-down")){
+   		       	    this.minScrollY=0;	
+                    oPullDown.addClass("pull-down").html("放开手刷新"); 
+   		       	}else if(this.y<0&&oPullDown.hasClass("pull-down")){
+   		       		this.minScrollY=-18;
+   		       		oPullDown.removeClass("pull-down").html("下拉刷新...")
+   		       	}else if(this.y<this.maxScrollY&&!oPullUp.hasClass("pull-up")){
+   		       		oPullUp.addClass("pull-up").html("放开手加载！");
+   		       	}else if(this.y>=this.maxScrollY&&oPullUp.hasClass("pull-up")){
+   		       		oPullUp.removeClass("pull-up").html("上拉加载...")
+   		       	}
+   		       },
+   		       onScrollEnd:function(){
+   		       	if(oPullDown.hasClass("pull-down")){
+   		       		oPullDown.html("Loading");
+   		       		pullDownData();
+   		       	}else if(oPullUp.hasClass("pull-up")){
+   		       		oPullUp.html("Loading");
+   		       		pullUpData();
+   		       	}  		       	
+   		       },
+   		       onRefresh:function(){
+   		       	if(oPullDown.hasClass("pull-down")){
+   		       		oPullDown.removeClass("pull-down").html("下拉刷新...");
+   		       	}else if(oPullUp.hasClass("pull-up")){
+   		       		oPullUp.removeClass("pull-up").html("上拉加载...")
+   		       	}
+   		       }
+          }); 
+          //oScroll等应该设置成全局变量，为了让任何时候就可以调用此插件！！！hScrollbar, vScrollbar用来隐藏滚动条
+	 	},100) ;
+      }
+      document.addEventListener("touchmove",function(ev){
+      	ev.preventDefault();
+      },false);
+	 window.addEventListener('load',loaded,false);
+
+	 function pullDownData(){
+		setTimeout(function(){
+			for(var i=0;i<3;i++){
+               var iNewLi=document.createElement("li");
+               iNewLi.innerHTML="这是我新创建的第"+ ++iNum +"个li!";
+               oList[0].insertBefore(iNewLi,oList[0].firstChild);
+               //新插入的dom节点，放到哪个地方,insertBefore是原生的用法，所以前面那个元素需要加一个[0]；
+			}
+			oScroll.refresh();
+		},1000);
+	}	
+	function pullUpData(){
+		setTimeout(function(){
+			for(var i=0;i<3;i++){
+               var iNewLi=document.createElement("li");
+               iNewLi.innerHTML="这是我新创建的第"+ ++iNum +"个li!";
+               oList[0].appendChild(iNewLi);
+               //新插入的dom节点，放到哪个地方,insertBefore是原生的用法，所以前面那个元素需要加一个[0]；
+			}
+			oScroll.refresh();
+		},1000);
+	}	
+ </script>
+</head>
+<body>
+	<div id="container">
+	  <div id="wrap">
+	   <div id="pullDown">下拉刷新...</div>
+		<ul id="list">
+			<li>这是第1个新闻！！！</li>
+			<li>这是第2个新闻！！！</li>
+			<li>这是第3个新闻！！！</li>
+			<li>这是第4个新闻！！！</li>
+			<li>这是第5个新闻！！！</li>
+			<li>这是第6个新闻！！！</li>
+			<li>这是第7个新闻！！！</li>
+			<li>这是第8个新闻！！！</li>
+			<li>这是第9个新闻！！！</li>
+			<li>这是第10个新闻！！！</li>
+		</ul>
+		<div id="pullUp">上拉加载...</div>
+	  </div>
+	</div>
+</body>
+</html>

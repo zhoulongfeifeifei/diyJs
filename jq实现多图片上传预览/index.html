@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多图片上传预览</title>
+	<style>
+		img{
+			vertical-align: top;
+			width: 200px;
+			height: 160px;
+			display: inline-block;
+			box-sizing: content-box;
+		}
+		.details-1 summary {
+		    width: -moz-fit-content;
+		    width: fit-content;
+		    direction: rtl;
+		}
+		.details-1 ::-webkit-details-marker {
+		    direction: ltr;
+		    color: gray;
+		    margin-left: .5ch;
+		}
+		.details-1 ::-moz-list-bullet {
+		    direction: ltr;
+		    color: gray;
+		    margin-left: .5ch;
+		}
+		::-webkit-details-marker {
+		    display: none;
+		}
+		::-moz-list-bullet {
+		    font-size: 0;
+		    float: left;
+		}
+		.more {
+		    display: none;
+		}
+		[open] .more {
+		    display: block;
+		}
+		[open] summary a {
+		    font-size: 0;
+		}
+		[open] summary a::before {
+		    content: '收起';
+		    font-size: 14px;
+		}
+		details {
+		    padding-left: 20px;
+		}
+		summary::before {
+		    content: '';
+		    display: inline-block;
+		    width: 12px; height: 12px;
+		    border: 1px solid #999;
+		    background: linear-gradient(to right, #999, #999) no-repeat center, linear-gradient(to top, #999, #999) no-repeat center;
+		    background-size: 2px 10px, 10px 2px;
+		    vertical-align: -2px;
+		    margin-right: 6px;
+		    margin-left: -20px;
+		}
+		[open] > summary::before {
+		    background: linear-gradient(to right, #999, #999) no-repeat center;
+		    background-size: 10px 2px;
+		}
+	</style>
+</head>
+<body>
+	<input type="file" id="browse" onchange="previewFiles()" multiple="">
+	<div id="preview"></div>
+	<details class="details-1">
+	    <summary>这是摘要1</summary>
+	    <p>这里具体描述，标签相对随意，例如这里使用的&lt;p&gt;标签。</p>
+	</details>
+	<details>
+	    <summary>
+	        <p>据台媒报道，大...青睐。</p>
+	        <div class="more">
+	            <p>其他几首歌曲...</p>
+	        </div>
+	        <a>更多</a>
+	    </summary> 
+	</details>
+	<details open>
+	    <summary><dt>订单中心</dt></summary> 
+	    <dd><a href>我的订单</a></dd>
+	    <dd><a href>我的活动</a></dd>
+	    <dd><a href>评价晒单</a></dd>
+	    <dd><a href>购物助手</a></dd>
+	</details>
+	<details open>
+	    <summary><dt>关注中心</dt></summary> 
+	    <dd><a href>关注的商品</a></dd>
+	    ...
+	</details>
+	<details>
+	    <summary>我的视频</summary>
+	    <details>
+	        <summary>爆肝工程师的异世界狂想曲</summary>
+	        <div>tv1-720p.mp4</div>
+	        <div>tv2-720p.mp4</div>
+	        ...
+	        <div>tv10-720p.mp4</div>
+	    </details>
+	    <details>
+	        <summary>七大罪</summary>
+	        <div>七大罪B站00合集.mp4</div>
+	    </details>
+	    <div>珍藏动漫网盘地址.txt</div>
+	    <div>我们的小美好.mp4</div>
+	</details>
+</body>
+<script src="jquery.js"></script>
+<script>
+	function previewFiles(){
+		var preview = $('#preview');
+		var files=$('#browse')[0].files;
+	    // var files = document.querySelector('input[type=file]').files;
+	    function readAndPreview(file){
+	    	if(/\.(jpe?g|png|gif)$/i.test(file.name)){
+	    		var reader = new FileReader();
+	    		reader.addEventListener('load',function(){
+	    			var image = new Image();
+	                image.title = file.name;
+	                image.src = this.result;
+	                preview.append(image);
+	    		},false);
+	    		reader.readAsDataURL(file);
+	    	}
+	    };
+	    if(files){
+	    	[].forEach.call(files, readAndPreview);
+	    }
+	} 
+</script>
+</html>

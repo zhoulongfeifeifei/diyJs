@@ -1,0 +1,48 @@
+body, html, div, ul, li, dl, dd, dt, p, input, h1, h2, h3, h4, h5, h6, table, hr, form {
+  margin: 0;
+  padding: 0; 
+}
+
+body,html{
+   height:100%;
+   box-sizing: border-box;
+}
+li {
+  list-style: none; 
+}
+a {
+  text-decoration: none; 
+}
+em, i {
+  font-style: normal;
+}
+b, strong {
+  font-weight: normal;
+}
+input, button {
+  border: none;
+  outline: none; 
+}
+img {
+  vertical-align: middle; 
+}
+/*轮播图*/
+.swiper-container{
+  width:100%;
+  height:25%;
+  overflow: hidden;
+  position: relative;
+}
+.swiper-container .swiper-wrapper{
+  width:800%;
+}
+.swiper-wrapper .swiper-slide{
+  width:100%;
+}
+.swiper-slide img{
+  width:100%;
+}
+/*头部搜索*/
+#container{
+  height:100%;
+}

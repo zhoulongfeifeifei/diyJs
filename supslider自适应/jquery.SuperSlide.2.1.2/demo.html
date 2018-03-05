@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-CN">
+<meta name="Keywords" content="SuperSlide,横向全屏焦点图">
+<meta name="Description" content="SuperSlide,横向全屏焦点图">
+<title>横向全屏焦点图 - SuperSlide</title>
+<script type="text/javascript" src="jquery1.42.min.js"></script><script type="text/javascript" src="jquery.SuperSlide.2.1.2.js"></script>
+</head>
+<body>
+
+
+<style type="text/css">
+	/* css 重置 */
+	*{margin:0; padding:0; list-style:none; }
+	body{ background:#fff; font:normal 14px/1.8 宋体;  }
+	img{ border:0;  }
+	a{ text-decoration:none; color:#333;  }
+	a:hover{ color:#1974A1;  }
+	#footer{ text-align:center;  }
+	.main{ padding:1%  }
+	.main em{color:#f00; font-style:normal}
+	.main  h2{ margin-bottom:15px  }
+	.downLoad{ font-size:20px; text-decoration:underline }
+</style>
+
+
+	<!-- 示例开始 ======================= -->
+	<style type="text/css">
+		*{zoom:1}
+		.fullSlide{ position:relative; background:#000; margin:0 auto; }
+		.fullSlide .bd{ position:relative; z-index:0; }
+		.fullSlide .bd li img{width:100%; vertical-align:top;  } 
+		.fullSlide .hd{position:relative; z-index:1; margin-top:-30px; height:30px; line-height:30px;  text-align:center;
+			 background:#000; filter:alpha(opacity=60);opacity:0.6 
+		}
+		.fullSlide .hd ul{ text-align:center;  padding-top:5px;  }
+		.fullSlide .hd ul li{ cursor:pointer; display:inline-block; *display:inline; zoom:1; width:8px; height:8px; margin:5px; background:url(images/tg_flash_p.png) -18px 0; overflow:hidden; 
+			font-size:0;
+		}
+		.fullSlide .hd ul .on{ background-position:0 0; }
+		.fullSlide .prev,.fullSlide .next{ z-index:1; display:block; width:55px; height:55px; position:relative; margin:-27% 0 0 3%; float:left;  background:url(images/arrow.png) 0 0 no-repeat; filter:alpha(opacity=40);opacity:0.4  }
+		.fullSlide .next{  background-position:right 0; float:right; margin-right:3%  }
+		.fullSlide .prev:hover,.fullSlide .next:hover{ filter:alpha(opacity=80);opacity:0.8 }
+	</style>
+
+	<div class="fullSlide">
+		<div class="bd">
+			<ul>
+				<li><a target="_blank" href="http://www.superslide2.com"><img src="images/1.jpg"/></a></li>
+				<li><a target="_blank" href="http://www.superslide2.com"><img src="images/2.jpg"/></a></li>
+				<li><a target="_blank" href="http://www.superslide2.com"><img src="images/3.jpg"/></a></li>
+				<li><a target="_blank" href="http://www.superslide2.com"><img src="images/4.jpg"/></a></li>
+				<li><a target="_blank" href="http://www.superslide2.com"><img src="images/5.jpg"/></a></li>
+			</ul>
+		</div>
+
+		<div class="hd"><ul></ul></div>
+
+		<a class="prev" href="javascript:void(0)"></a>
+		<a class="next" href="javascript:void(0)"></a>
+	</div>
+
+	<script type="text/javascript">
+		jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:true, trigger:"click" });
+	</script>
+	<!-- 示例结束 ======================= -->
+
+<div class="main">
+<h2>superslide左滚动自适应窗口宽度临时解决方案（更新v2.1.2）</h2>
+<p>现在自适应网站越来越多，焦点图滚动自适应宽度需求也越来越多，而superslide开始设计时并没考虑到自适应问题，现在提供的自适应示例仅适用fade/fold效果，而且是通过取巧的方法实现，而left/leftLoop就一直存在做滚动不能自适应的问题，现在提供临时解决方案：</p>
+<br />
+<p>更新superslide至v2.1.2：</p>
+<p>1、<em>增加参数设置 vis:"auto"</em>，仅适应于：scroll:1, effect:"left或leftLoop"情况（也就是通常的单图片滚动自适应宽度焦点图）</p>
+<p>如上面案例调用：jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", <em>effect:"leftLoop", vis:"auto", scroll:1, </em>autoPlay:true, autoPage:true, trigger:"click" });</p>
+<p>2、修复 mouseOverStop 和 autoPlay均为false下，点击切换按钮后会自动播放bug</p>
+<br />
+<p><a class="downLoad" href="jquery.SuperSlide.2.1.2.zip">下载当前示例（含superslide2.1.2）</a></p>
+</div>
+
+
+
+
+<div id="footer">Copyright ©2011-2015 大话主席 <a target="_blank" href="http://www.superslide2.com">www.superslide2.com</a></div>
+</body>
+</html>
